@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Module Develop</title>
+<meta charset="utf-8">
+<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+<style type="text/css">
+	html,body{
+		height: 100%
+	}
+	body{
+		background-color: #fff;
+	    margin: 0;
+	}
+	#wrap{
+	    height: 100%;
+	    position: relative;
+	}
+	#header{
+		background-color: #5082c2;
+		height: 44px;
+	    position: relative;
+	}
+	#header h1{
+	    font-size: 20px; 
+	    height: 44px; 
+	    line-height: 44px; 
+	    margin: 0em; 
+	    color: #fff;
+		margin-left: 100px;
+		margin-right: 100px;
+		text-align: center;
+	}
+    #main{
+        display: block;
+    }
+    a.button{
+        display: -webkit-box;
+        -webkit-box-pack: center;
+        -webkit-box-align: center;
+        height: 36px;
+        margin: 8px;
+        background-color: rgba(240,240,240,1.0);
+        border-color: rgba(220,220,220,1.0);
+        border-width: 2px;
+        border-style: solid;
+	}
+    a.active{
+        background-color: rgba(240,240,240,0.6);
+	}
+</style>
+</head>
+<body>
+	<div id="wrap">
+	    <header id="header">
+	    	<h1 id="title">模块开发</h1>
+	    </header>
+	    <div id="main">
+            <a class="button" tapmode="active" onclick="startPay()">标准收银台</a>
+            <a class="button" tapmode="active" onclick="startEmbedPay()">嵌入式收银台</a>
+        </div>
+    </div>
+</body>
+<script>
+
+function startPay() {
+    var paySdk = api.require('mtFaceModule');
+    paySdk.startPay({
+        parentMerchantNo: '1038646647',
+        authCode: '13412',
+        orderInfo: {
+            uniqueOrderNo: 'TR100102092020090913882053',        //唯一订单号
+            orderAmount: '0.02',                  //订单金额    
+            orderName: '100抖音币',                //商品名称
+            payWays: [
+                {
+                    payWay: 'ALIPAY_SDK_ZFB',     //支付宝
+                    slogan: '优惠'                //【选填】设置支付宝支付宣传标语为“优惠”
+                },
+                {
+                    payWay: 'FACEPAY_SDK_YP',     //刷脸
+                    slogan: '推荐'                 //【选填】设置刷脸支付宣传标语为“推荐”
+                },
+                {
+                    payWay: 'WECHATPAY_MP_YP',     //微信小程序
+                    miniProgramType: 'preview'     //【选填】设置小程序的类型，'preview':体验，'test':开发，默认不填为：发布
+                },
+                {
+                    payWay: 'UNIONPAY_SDK_YP',    //银联云闪付
+                }
+            ]
+        }
+    },function(result){
+        var message = "支付结果：" + result.code + "\nmessage：" + result.message;
+        api.toast({
+            msg: message,
+            location: 'middle'
+        });
+    });
+}
+
+function startEmbedPay() {
+    var paySdk = api.require('mtFaceModule');
+    paySdk.startPay({
+        parentMerchantNo: '1038646647',
+        authCode: '13412',
+        orderInfo: {
+            uniqueOrderNo: 'TR1243123412',  //唯一订单号
+            orderAmount: '0.02',            //订单金额
+            orderName: '100抖音币',          //商品名称
+            payWay: 'WECHATPAY_MP_YP',      //微信小程序
+            miniProgramType: 'preview'      //【选填】设置小程序的类型，'preview':体验，'test':开发，默认不填为：发布
+                
+        }
+    },function(result){
+        var message = "支付结果：" + result.code + "\nmessage：" + result.message;
+        api.toast({
+            msg: message,
+            location: 'middle'
+        });
+    });
+}
+
+function apiready() {
+    var header = document.getElementById('header');
+    header.style.paddingTop = api.safeArea.top + 'px';
+    
+    api.removeLaunchView();
+}
+</script>
+</html>

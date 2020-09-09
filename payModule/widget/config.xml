@@ -1,0 +1,45 @@
+<widget id="A123456789"  version="0.0.1">
+    <name>模块开发</name>
+    <description>
+        模块开发示例应用.
+    </description>
+    <author email="developer@apicloud.com" href="https://www.apicloud.com">
+        APICloud
+    </author>
+    <content src="index.html" />
+    <preference name="debug" value="true"/>
+
+
+    <!-- 权限配置：相机 -->
+    <permission name="camera" />
+    <!-- 权限配置：地理位置 -->
+    <permission name="location" />
+
+    <!-- 配置URLScheme -->
+    <preference name="urlScheme" value="facepaysdkdemo" />
+
+    <!-- 配置可被检测的URL Scheme:微信，银联云闪付，支付宝经测试，可以不用配置 -->
+    <preference name="querySchemes" value="weixin,weixinULAPI,uppaywallet,alipay" />
+    
+
+    <feature name="MTFaceModule">
+    	
+    	<!-- 设置应用注册的配置URLScheme，用于三方APP操作完回调使用，如果不设置，会影响支付结果的正常跳转（支付宝，银联云闪付需要使用） -->
+    	<param name="scheme" value="facepaysdkdemo"/>
+
+    	<!-- 设置刷脸显示模式: style '1':中部弹框人脸清晰模式（默认）；'0'：朦胧模式；'-1'：不显示模式； -->
+    	<param name="style" value="0"/>
+
+    	<!-- 使用SDK自带收银台UI时需要配置：设置收银台UI布局风格: 默认单行一列垂直自适应高度排列布局；调用此API后设置为水平布局：一行两列 -->
+    	<param name="horizontal" value="true"/>
+
+    	<!-- 微信支付配置：appId：微信appid；universalLink：通用链接，微信新版SDK需要，生成和验证教程自行百度，如不配置会出现每次拉起微信应用时，两次应用间跳转；miniProgramId:微信小程序原始id -->
+    	<param name="appId" value="wx1ac925b63fcd186d"/>   
+    	<param name="universalLink" value="https://static.91mika.com/"/>
+    	<param name="miniProgramId" value="gh_c3dc3ce002b3"/>
+
+    	<!-- 刷脸id -->
+    	<param name="licenseId" value="mmx-app-face-face-ios"/>
+
+    </feature>
+</widget>
