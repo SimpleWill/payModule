@@ -64,6 +64,7 @@
 	    </header>
 	    <div id="main">
             <input type="text" id="orderNo" placeholder="请输入订单号">
+            <input type="text" id="orderAmount" placeholder="请输入订单金额">
             <a class="button" tapmode="active" onclick="startPay()">标准收银台</a>
             <a class="button" tapmode="active" onclick="startEmbedPay()">嵌入式收银台</a>
         </div>
@@ -72,16 +73,19 @@
 <script>
 
 function startPay() {
-    var paySdk = api.require('mtFaceModule');
-    paySdk.startPay({
-        parentMerchantNo: '1038646647',
-        authCode: '13412',
-        orderInfo: {
-            uniqueOrderNo: 'TR100102092020090913882053',        //唯一订单号
-            orderAmount: '0.02',                  //订单金额    
+    var orderVal = document.getElementById('orderNo').value;
+    var orderAmountVal = document.getElementById('orderAmount').value;
+    if (orderVal && orderAmountVal) {
+        var paySdk = api.require('mtFaceModule');
+        paySdk.startPay({
+            parentMerchantNo: '1038646647',
+            authCode: '13412',
+            orderInfo: {
+            uniqueOrderNo: orderVal,        //唯一订单号
+            orderAmount: orderAmountVal,                  //订单金额    
             orderName: '100抖音币',                //商品名称
             payWays: [
-                {
+            {
                     payWay: 'ALIPAY_SDK_ZFB',     //支付宝
                     slogan: '优惠'                //【选填】设置支付宝支付宣传标语为“优惠”
                 },
@@ -96,29 +100,38 @@ function startPay() {
                 {
                     payWay: 'UNIONPAY_SDK_YP',    //银联云闪付
                 }
-            ]
-        }
-    },function(result){
-        var message = "支付结果：" + result.code + "\nmessage：" + result.message;
+                ]
+            }
+        },function(result){
+            var message = "支付结果：" + result.code + "\nmessage：" + result.message;
+            api.toast({
+                msg: message,
+                location: 'middle'
+            });
+        });
+    } else {
         api.toast({
-            msg: message,
+            msg: '请检查订单号和订单金额',
             location: 'middle'
         });
-    });
+    }
 }
 
 function startEmbedPay() {
-    var paySdk = api.require('mtFaceModule');
-    paySdk.startPay({
-        parentMerchantNo: '1038646647',
-        authCode: '13412',
-        orderInfo: {
+    var orderVal = document.getElementById('orderNo').value;
+    var orderAmountVal = document.getElementById('orderAmount').value;
+    if (orderVal && orderAmountVal) {
+        var paySdk = api.require('mtFaceModule');
+        paySdk.startPay({
+            parentMerchantNo: '1038646647',
+            authCode: '13412',
+            orderInfo: {
             uniqueOrderNo: 'TR1243123412',  //唯一订单号
             orderAmount: '0.02',            //订单金额
             orderName: '100抖音币',          //商品名称
             payWay: 'WECHATPAY_MP_YP',      //微信小程序
             miniProgramType: 'preview'      //【选填】设置小程序的类型，'preview':体验，'test':开发，默认不填为：发布
-                
+
         }
     },function(result){
         var message = "支付结果：" + result.code + "\nmessage：" + result.message;
@@ -127,6 +140,12 @@ function startEmbedPay() {
             location: 'middle'
         });
     });
+    } else {
+        api.toast({
+            msg: '请检查订单号和订单金额',
+            location: 'middle'
+        });
+    }
 }
 
 function apiready() {
