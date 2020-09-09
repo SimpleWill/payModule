@@ -33,6 +33,7 @@
 	}
     #main{
         display: block;
+        text-align: center;
     }
     a.button{
         display: -webkit-box;
@@ -48,14 +49,21 @@
     a.active{
         background-color: rgba(240,240,240,0.6);
 	}
+    input{
+        margin-top: 20px;
+        font-size: 16px;
+        width: 80%;
+        height: 40px;
+    }
 </style>
 </head>
 <body>
 	<div id="wrap">
 	    <header id="header">
-	    	<h1 id="title">模块开发</h1>
+	    	<h1 id="title">支付SDK</h1>
 	    </header>
 	    <div id="main">
+            <input type="text" id="orderNo" placeholder="请输入订单号">
             <a class="button" tapmode="active" onclick="startPay()">标准收银台</a>
             <a class="button" tapmode="active" onclick="startEmbedPay()">嵌入式收银台</a>
         </div>
