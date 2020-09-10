@@ -16,7 +16,8 @@
     <permission name="location" />
 
     <!-- 配置URLScheme -->
-    <preference name="urlScheme" value="facepaysdkdemo" />
+    <preference name="urlScheme" value="facepaysdkdemo,wx1ac925b63fcd186d" />
+    
 
     <!-- 配置可被检测的URL Scheme:微信，银联云闪付，支付宝经测试，可以不用配置 -->
     <preference name="querySchemes" value="weixin,weixinULAPI,uppaywallet,alipay" />
