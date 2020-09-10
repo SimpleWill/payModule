@@ -66,7 +66,10 @@
             <input type="text" id="orderNo" placeholder="请输入订单号">
             <input type="text" id="orderAmount" placeholder="请输入订单金额">
             <a class="button" tapmode="active" onclick="startPay()">标准收银台</a>
-            <a class="button" tapmode="active" onclick="startEmbedPay()">嵌入式收银台</a>
+            <a class="button" tapmode="active" onclick="startWxMiniPay()">嵌入式收银台（微信小程序）</a>
+            <a class="button" tapmode="active" onclick="startFacePay()">嵌入式收银台（刷脸）</a>
+            <a class="button" tapmode="active" onclick="startAliPay()">嵌入式收银台（支付宝）</a>
+            <a class="button" tapmode="active" onclick="startUnionPay()">嵌入式收银台（银联）</a>
         </div>
     </div>
 </body>
@@ -117,22 +120,49 @@ function startPay() {
     }
 }
 
-function startEmbedPay() {
+//微信小程序支付
+function startWxMiniPay () {
+    startEmbedPay({
+        payWay: 'WECHATPAY_MP_YP',      //微信小程序
+        miniProgramType: 'preview'      //【选填】设置小程序的类型，'preview':体验，'test':开发，默认不填为：发布
+    });
+}
+
+//刷脸支付
+function startFacePay () {
+    startEmbedPay({
+        payWay: 'FACEPAY_SDK_YP',      //刷脸
+    });
+}
+
+//支付宝支付
+function startAliPay() {
+    startEmbedPay({
+        payWay: 'ALIPAY_SDK_ZFB',      //支付宝
+    });
+}
+
+//银联云闪付
+function startUnionPay() {
+    startEmbedPay({
+        payWay: 'UNIONPAY_SDK_YP',      //银联云闪付
+    });
+}
+
+
+function startEmbedPay(option) {
     var orderVal = document.getElementById('orderNo').value;
     var orderAmountVal = document.getElementById('orderAmount').value;
     if (orderVal && orderAmountVal) {
+
+        option.uniqueOrderNo = orderVal;       //唯一订单号
+        option.orderAmount = orderAmountVal;   //订单金额
+
         var paySdk = api.require('mtFaceModule');
         paySdk.startPay({
             parentMerchantNo: '1038646647',
             authCode: '3873FA00E99D21392163866D1D3B3465',
-            orderInfo: {
-            uniqueOrderNo: orderVal,  //唯一订单号
-            orderAmount: orderAmountVal,            //订单金额
-            orderName: '100抖音币',          //商品名称
-            payWay: 'WECHATPAY_MP_YP',      //微信小程序
-            miniProgramType: 'preview'      //【选填】设置小程序的类型，'preview':体验，'test':开发，默认不填为：发布
-
-        }
+            orderInfo: option
     },function(result){
         var message = "支付结果：" + result.code + "\nmessage：" + result.message;
         api.toast({
