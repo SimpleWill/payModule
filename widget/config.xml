@@ -16,7 +16,7 @@
     <permission name="location" />
 
     <!-- 配置URLScheme -->
-    <preference name="urlScheme" value="facepaysdkdemo,wx1ac925b63fcd186d" />
+    <preference name="urlScheme" value="wx1ac925b63fcd186d" />
     
 
     <!-- 配置可被检测的URL Scheme:微信，银联云闪付，支付宝经测试，可以不用配置 -->
@@ -26,7 +26,7 @@
     <feature name="MTFaceModule">
     	
     	<!-- 设置应用注册的配置URLScheme，用于三方APP操作完回调使用，如果不设置，会影响支付结果的正常跳转（支付宝，银联云闪付需要使用） -->
-    	<param name="scheme" value="facepaysdkdemo"/>
+    	<param name="scheme" value="wx1ac925b63fcd186d"/>
 
     	<!-- 设置刷脸显示模式: style '1':中部弹框人脸清晰模式（默认）；'0'：朦胧模式；'-1'：不显示模式； -->
     	<param name="style" value="0"/>
